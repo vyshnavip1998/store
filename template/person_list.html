@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load myfilter %}
+{% block title %}School Store{% endblock %}
+ 
+{% block content %}
+  <table class="table table-striped custab" border="1">
+    <thead>
+  <a href="{% url 'person_add' %}" class="btn btn-primary btn-xs pull-right"><b>+</b> Add new query</a>
+        <tr>
+        <th>Name</th>
+        <th>Birthdate</th>
+            <th>Age</th>
+            <th>Gender</th>
+            <th>Phone Number</th>
+            <th>Email ID</th>
+            <th>Address</th>
+        <th>Department</th>
+        <th>Course</th>
+            <th>Purpose</th>
+            <th>Material</th>
+  <th class="text-center">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for person in people %}
+        <tr>
+          <td><a href="{% url 'person_change' person.pk %}">{{ person.name }}</a></td>
+          <td>{{ person.birthdate }}</td>
+             <td>{{ person.age }}</td>
+          <td>{{ person.gender }}</td>
+          <td>{{ person.phone_number }}</td>
+          <td>{{ person.email_id }}</td>
+            <td>{{ person.address }}</td>
+          <td>{{ person.department.name }}</td>
+          <td>{{ person.course.name }}</td>
+          <td>{{ person.purpose }}</td>
+          <td>{{ person.material| cut:"[]'" }}</td>
+    <td class="text-center"><a class='btn btn-info btn-xs' href="#"><span class="glyphicon glyphicon-edit"></span> Edit</a> <a href="#" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Del</a></td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="4">No person in the database. <a href="{% url 'person_add' %}">Add the first person</a>.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

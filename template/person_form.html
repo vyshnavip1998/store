@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% load myfilter %}
+{% block content %}
+{% load widget_tweaks %}
+<!--<script>-->
+<!--    alert('{{ message|safe }}');-->
+<!--</script>-->
+  <h2></h2>
+<!-- {% if messages %}-->
+<!--     {% for message in messages %}-->
+<!--         <div class="text-center alert alert-{{ message.tags }}">-->
+<!--             {{ message|safe }}-->
+<!--         </div>-->
+<!--     {% endfor %}-->
+<!-- {% endif %}-->
+ {% if messages %}
+        {% for message in messages %}
+         {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+
+        {% endfor %}
+
+    {% endif %}
+{% load bootstrap4 %}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+{{ form.media }}
+<!--<img src="{% static 'img/storelogo.jpg' %}" height="800px" width="800px">-->
+  <form method="post" id="personForm"  data-courses-url="{% url 'ajax_load_cities' %}" novalidate>
+    {% csrf_token %}
+    <table class="center">
+
+       {{ form.as_table }}
+    </table>
+<!-- {% for field in form.visible_fields %}-->
+<!--   <div class="form-group">-->
+<!--  <label for="{{ field.id_for_label }}">{{ field.label }}</label>-->
+<!--  {{ field|add_class:'form-control' }}-->
+<!--  {% for error in field.errors %}-->
+<!--    <span class="help-block">{{ error }}</span>-->
+<!--  {% endfor %}-->
+<!--   </div>-->
+<!-- {% endfor %}-->
+
+    <center><button style="background-color:green; color:white;" type="submit" class="btn btn-success">Save</button>
+
+<!--    <a href="{% url 'person_changelist' %}">Home</a>-->
+</center>
+  </form>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script>
+    $("#id_department").change(function () {
+      var url = $("#personForm").attr("data-courses-url");
+      var departmentId = $(this).val();
+
+      $.ajax({
+        url: url,
+        data: {
+          'department': departmentId
+        },
+        success: function (data) {
+          $("#id_course").html(data);
+        }
+      });
+
+    });
+  </script>
+
+{% endblock %}

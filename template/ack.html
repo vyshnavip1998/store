@@ -1,0 +1,26 @@
+<html>
+ {% load static %}
+<style>
+.center {
+  height: 200px;
+  position: relative;
+  border: 3px solid white;
+}
+
+.center h1 {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+</style>
+<div class="center">
+<a href="/"><center><h1>Successfully Completed</h1></center></a>
+</div>
+<div class="container">
+    <center>
+    <img src="{% static 'img/storelogo.jpg' %}" width="600px" height="600px" alt=""></center>
+</div>
+</html>
